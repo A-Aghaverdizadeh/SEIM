@@ -1,0 +1,10 @@
+/venv
+# /portfolio-pages
+# db.sqlite3 
+__pycache__/
+*.pyc
+*.pyo
+.vscode
+.env
+.env.*
+db.sqlite3
