@@ -1,4 +1,5 @@
-from models import Event, RawLog
+from models.event import Event
+from models.raw_log import RawLog
 from core.enums import EventSource, EventType, Severity
 from typing import Any
 

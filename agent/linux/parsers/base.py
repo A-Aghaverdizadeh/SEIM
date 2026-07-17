@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from models import RawLog, Event
+from models.event import Event
+from models.raw_log import RawLog
 
 
 class BaseParser(ABC):

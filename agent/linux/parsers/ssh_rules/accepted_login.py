@@ -1,6 +1,6 @@
 import re
 
-from models import RawLog
+from models.raw_log import RawLog
 from .base import BaseSSHRule
 from core.enums import EventType, Severity
 from core.event_factory import SSHEventFactory

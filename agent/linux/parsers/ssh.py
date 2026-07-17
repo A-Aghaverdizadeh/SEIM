@@ -1,4 +1,5 @@
-from models import RawLog, Event
+from models.event import Event
+from models.raw_log import RawLog
 from .base import BaseParser
 from .ssh_rules import failed_login, accepted_login, invalid_user, publickey_login, root_login, authentication_timeout
 

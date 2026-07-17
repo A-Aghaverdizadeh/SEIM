@@ -1,6 +1,6 @@
 from systemd import journal
 
-from models import RawLog
+from models.raw_log import RawLog
 from .base import BaseCollector
 
 

@@ -6,13 +6,6 @@ from pydantic import BaseModel, Field
 from core.enums import EventSource, EventType, Severity
 
 
-class RawLog(BaseModel):
-    timestamp: datetime
-    hostname: str
-    identifier: str
-    message: str
-
-
 class Event(BaseModel):
     timestamp: datetime
     hostname: str
