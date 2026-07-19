@@ -1,16 +1,17 @@
 from collectors.journal import JournalCollector
 from parsers.ssh import SSHParser
-
+from pipeline.agent import AgentPipeline
 
 collector = JournalCollector()
 parser = SSHParser()
 
 
-for log in collector.collect():
+pipeline = AgentPipeline(
+    collector=collector,
+    parser=parser,
+)
 
-    event = parser.parse(log)
+for event in pipeline.process():
 
-    if event is None:
-        continue
-
-    print(event.model_dump_json(indent=2))
+    # print(event.to_json())
+    print(print(event.model_dump_json(indent=2)))

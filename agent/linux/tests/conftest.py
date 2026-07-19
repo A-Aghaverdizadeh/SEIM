@@ -16,3 +16,12 @@ def make_log():
         )
 
     return _make_log
+
+@pytest.fixture
+def raw_log():
+    return RawLog(
+        timestamp=datetime.now(),
+        hostname="debian",
+        identifier="sshd",
+        message="Test message",
+    )
