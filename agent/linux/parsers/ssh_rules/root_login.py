@@ -6,7 +6,7 @@ from core.enums import EventType, Severity
 from core.event_factory import SSHEventFactory
 
 ROOT_LOGIN = re.compile(
-    r"Invalid user (?P<username>\S+) from (?P<ip>\S+) port (?P<port>\d+)"
+    r"Accepted password for (?P<username>\S+) from (?P<ip>\S+) port (?P<port>\d+)"
 )
     
 
