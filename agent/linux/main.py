@@ -3,12 +3,14 @@ from parsers.ssh import SSHParser
 from pipeline.agent import AgentPipeline
 
 collector = JournalCollector()
-parser = SSHParser()
+# parser = SSHParser()
 
 
 pipeline = AgentPipeline(
     collector=collector,
-    parser=parser,
+    parsers=[
+        SSHParser(),
+    ]
 )
 
 for event in pipeline.process():

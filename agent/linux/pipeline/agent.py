@@ -6,15 +6,18 @@ from models.raw_log import RawLog
 
 class AgentPipeline:
 
-    def __init__(self, collector, parser):
+    def __init__(self, collector, parsers: list):
         self.collector = collector
-        self.parser = parser
+        self.parsers = parsers
 
     def process(self) -> Iterator[Event]:
 
         for log in self.collector.collect():
 
-            event = self.parser.parse(log)
+            for parser in self.parsers:
 
-            if event is not None:
-                yield event
+                event = parser.parse(log)
+
+                if event is not None:
+                    yield event
+                    break

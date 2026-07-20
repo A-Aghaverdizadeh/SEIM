@@ -61,7 +61,9 @@ class TestAgentPipeline:
 
         pipeline = AgentPipeline(
             collector=FakeCollector(),
-            parser=SSHParser(),
+            parsers=[
+                SSHParser()
+            ]
         )
 
         events = list(pipeline.process())
@@ -99,7 +101,9 @@ class EmptyCollector:
 
         pipeline = AgentPipeline(
             collector=EmptyCollector(),
-            parser=SSHParser(),
+            parsers=[
+                SSHParser()
+            ]
         )
 
         events = list(pipeline.process())
@@ -121,7 +125,9 @@ class UnknownCollector:
 
         pipeline = AgentPipeline(
             collector=UnknownCollector(),
-            parser=SSHParser(),
+            parsers=[
+                SSHParser()
+            ]
         )
 
         events = list(pipeline.process())
