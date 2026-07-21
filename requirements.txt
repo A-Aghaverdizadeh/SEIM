@@ -1,0 +1,13 @@
+pydantic==2.13.4
+systemd-python==235
+pytest==9.1.1
+pytest-cov==7.1.0
+pytest-mock==3.15.1
+httpx==0.28.1
+alembic==1.18.5
+asyncpg==0.31.0
+python-dotenv==1.2.2
+pydantic-settings==2.14.2
+SQLAlchemy==2.0.51
+uvicorn==0.51.0
+fastapi[standard]==0.139.2

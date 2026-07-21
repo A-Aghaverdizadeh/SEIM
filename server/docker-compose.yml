@@ -1,0 +1,23 @@
+services:
+
+  postgres:
+
+    image: docker.arvancloud.ir/postgres:17
+
+    container_name: siem-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: siem
+      POSTGRES_USER: siem
+      POSTGRES_PASSWORD: siem
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

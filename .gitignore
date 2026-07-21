@@ -5,8 +5,8 @@ __pycache__/
 *.pyc
 *.pyo
 .vscode
-.env
-.env.*
+# .env
+# .env.*
 db.sqlite3
 .pytest_cache
 .coverage
