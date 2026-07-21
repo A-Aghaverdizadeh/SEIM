@@ -29,4 +29,3 @@ class EventQueue:
     
     def join(self):
         self.queue.join()
-

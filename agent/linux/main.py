@@ -1,13 +1,14 @@
+from pathlib import Path
 from collectors.journal import JournalCollector
 from parsers.ssh import SSHParser
 from pipeline.agent import AgentPipeline
 from transport import HTTPTransport
-from event_queue.event_queue import EventQueue
+from persistence.spool import EventSpool
+from persistence.jsonl import JsonLinesRepository 
 from transport.worker import TransportWorker
 from transport.retry import RetryPolicy
 
 collector = JournalCollector()
-# parser = SSHParser()
 
 
 pipeline = AgentPipeline(
@@ -17,12 +18,11 @@ pipeline = AgentPipeline(
     ]
 )
 
-event_queue = EventQueue()
+repository = JsonLinesRepository(
+    Path("queue/events.jsonl")
+)
 
-# for event in pipeline.process():
-
-#     # print(event.to_json())
-#     print(print(event.model_dump_json(indent=2)))
+spool = EventSpool(repository)
 
 transport = HTTPTransport(
     endpoint="http://localhost:8000/events"
@@ -34,7 +34,7 @@ retry_policy = RetryPolicy(
 )
 
 worker = TransportWorker(
-    queue=event_queue,
+    spool=spool,
     transport=transport,
     retry_policy=retry_policy,
 )
@@ -45,4 +45,4 @@ worker.start()
 for event in pipeline.process():
     
     print(event.model_dump_json(indent=2))
-    event_queue.put(event)
+    spool.enqueue(event)

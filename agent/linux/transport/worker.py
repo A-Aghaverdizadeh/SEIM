@@ -1,8 +1,7 @@
 import threading
 
-from models.event import Event
 from transport.base import BaseTransport
-from event_queue.event_queue import EventQueue
+from persistence.spool import EventSpool
 
 
 class TransportWorker(threading.Thread):
@@ -13,7 +12,7 @@ class TransportWorker(threading.Thread):
 
     def __init__(
         self,
-        queue: EventQueue,
+        spool: EventSpool,
         transport: BaseTransport,
         retry_policy,
     ):
@@ -22,7 +21,7 @@ class TransportWorker(threading.Thread):
             daemon=True
         )
 
-        self.queue = queue
+        self.spool = spool
         self.transport = transport
         self.retry_policy = retry_policy
 
@@ -31,7 +30,7 @@ class TransportWorker(threading.Thread):
 
         while True:
 
-            event = self.queue.get()
+            event = self.spool.dequeue()
 
             try:
 
@@ -40,12 +39,10 @@ class TransportWorker(threading.Thread):
                     event,
                 )
 
-                self.queue.task_done()
+                self.spool.acknowledge(event)
 
             except Exception as exc:
 
                 print(
-                    f"Event permanently failed: {exc}"
+                    f"Failed to deliver event: {exc}"
                 )
-
-                self.queue.task_done()
